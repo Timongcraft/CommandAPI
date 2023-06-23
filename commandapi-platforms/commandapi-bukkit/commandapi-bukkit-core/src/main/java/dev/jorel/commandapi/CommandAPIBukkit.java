@@ -71,6 +71,7 @@ public abstract class CommandAPIBukkit<Source> implements CommandAPIPlatform<Arg
 	private static CommandAPIBukkit<?> instance;
 	private static InternalBukkitConfig config;
 	private PaperImplementations paper;
+	private BukkitCommandAPIMessenger messenger;
 
 	// Static VarHandles
 	// I'd like to make the Maps here `Map<String, CommandNode<Source>>`, but these static fields cannot use the type
@@ -656,7 +657,12 @@ public abstract class CommandAPIBukkit<Source> implements CommandAPIPlatform<Arg
 
 	@Override
 	public BukkitCommandAPIMessenger setupMessenger() {
-		return new BukkitCommandAPIMessenger(CommandAPIProtocol.CHANNEL_NAME, getConfiguration().getPlugin());
+		messenger = new BukkitCommandAPIMessenger(CommandAPIProtocol.CHANNEL_NAME, getConfiguration().getPlugin());
+		return messenger;
+	}
+
+	public BukkitCommandAPIMessenger getMessenger() {
+		return messenger;
 	}
 
 	@Override
