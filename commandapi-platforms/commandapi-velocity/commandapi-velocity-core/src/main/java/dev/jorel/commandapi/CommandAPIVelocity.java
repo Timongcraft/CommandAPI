@@ -251,7 +251,7 @@ public class CommandAPIVelocity implements CommandAPIPlatform<Argument<?>, Comma
 		//  Therefore, they don't have any commands, so they don't need to be updated
 		if(optionalServer.isEmpty()) return;
 
-		getMessenger().sendPacket(optionalServer.get(), UpdateRequirementsPacket.create());
+		getMessenger().sendPacket(optionalServer.get(), new UpdateRequirementsPacket());
 	}
 
 	@Override
