@@ -170,6 +170,21 @@ class CommandRegistrationTests extends TestBase {
 			);
 
 		assertDoesNotThrow(commandWithEventuallyRunnableSubcommand::register);
+
+		// This command is not okay, because the presence of arguments on
+		//  the root indicate the root path was meant to be executed
+		CommandAPICommand commandWithNotExecutableRootArgument = new CommandAPICommand("test")
+			.withArguments(new StringArgument("arg1"))
+			.withSubcommand(
+				new CommandAPICommand("sub")
+					.executesPlayer(P_EXEC)
+			);
+
+		assertThrowsWithMessage(
+			MissingCommandExecutorException.class,
+			"The command path test<LiteralArgument> is not executable!",
+			commandWithNotExecutableRootArgument::register
+		);
 	}
 
 	@Test
